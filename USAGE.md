@@ -33,28 +33,13 @@ privacy, errors, and troubleshooting.
 ## 1. What the SDK does
 
 The Core Module resolves **which ad campaign drove each install and re-engagement** and
-reports **lifecycle events** (purchase, login, add-to-cart, …) back to the Colada backend.
-The backend forwards conversions to ad platforms (Meta, TikTok, Google Ads, Snapchat)
-server-side.
+reports **lifecycle events** (purchase, login, add-to-cart, …)
 
 Key properties:
 
 - **Zero third-party dependencies** — nothing to install besides this package.
-- **No IDFA, no App Tracking Transparency** — the SDK does not use the advertising
-  identifier and never prompts for tracking permission.
-- **Self-driving** — configuration alone handles the first-install handshake; deep links
-  handle re-engagements. You do not have to implement an attribution policy.
-- **iOS 13.0+** required.
+- **Self-driving** — configuration alone handles the first-install handshake; and reinstalls.
 
-Two modules exist:
-
-| Module | Package product | What it is | Who uses it |
-|---|---|---|---|
-| `Colada` (Core) | `Colada` | Attribution + events + lifecycle, zero dependencies | Everyone |
-
-The **binary package** ships Core only — no source code, zero third-party dependencies.
-
----
 
 ## 2. Requirements
 
@@ -62,7 +47,6 @@ The **binary package** ships Core only — no source code, zero third-party depe
 - Swift **5.9 or later** (Xcode 15+).
 - A Colada **API key** (`pk_live_…`) — reach out to your Colada contact if you don't
   have one.
-- Deep links configured (if you want re-engagement attribution) — see §5.
 
 ---
 
@@ -100,7 +84,7 @@ import Colada
 ```
 
 The SDK is used through the singleton `ColadaSDK.shared`. There is **exactly one
-instance** — the initializer is private, so you can never create a second one.
+instance**.
 
 ---
 
@@ -144,16 +128,17 @@ What `configure` does — point by point:
 1. **Reads (or mints) the device identity.** The SDK keeps a stable per-device UUID in
    the Keychain. On a fresh install it creates one; on later launches it reads the
    existing one. The identity survives uninstall/reinstall.
-2. **Exchanges the API key for a session token.** It calls
+   
+3. **Exchanges the API key for a session token.** It calls
    `POST /attribution/sdk/init` in the background and caches the result in the Keychain.
    Every later SDK call authorizes itself with this token automatically — you never
    handle it.
-3. **Kicks off the first-install handshake (self-driving).** If this install has never
+4. **Kicks off the first-install handshake (self-driving).** If this install has never
    completed a handshake, the SDK reads the clipboard once (bounded wait for
    foreground) and sends whatever it found — including a `matched: false` result for an
    organic install. A failed attempt (offline, backend error) leaves the "gate" open so
    the next launch retries.
-4. **Flushes the offline queue** of any events that failed delivery previously.
+5. **Flushes the offline queue** of any events that failed delivery previously.
 
 Properties of `configure`:
 
@@ -755,14 +740,6 @@ re-navigates on every launch, you're probably reading `attributionStoreId` from
 - **Privacy block (19.3)** behaves the same, but ATT state must be granted explicitly in
   the simulator's Settings.
 
-### 19.14 App Store Connect privacy warnings
-
-- The SDK ships its own `PrivacyInfo.xcprivacy` — its collected-data declarations
-  (`DeviceId`, and `Name`/`EmailAddress`/`PhoneNumber` when you use
-  `reportRegistration`) and tracking domains are already covered by the SDK's manifest.
-- **You** must declare in **your app's** manifest anything your own code collects. If
-  you never call `reportRegistration`, no user PII ever leaves the device through the
-  SDK.
 
 ### 19.15 Version / cache problems in general
 
@@ -789,9 +766,6 @@ No. `configure()` handles first installs (self-driving, clipboard included) and
 **Q: `matched: false` — is something broken?**
 No. It means an organic install with no ad campaign behind it. It is a normal result.
 
-**Q: Why is there no ATT prompt / IDFA usage?**
-The SDK doesn't use IDFA. Attribution resolves through your click data + the stable
-device identity + your user ID.
 
 **Q: Does the SDK keep working offline?**
 Events are retried with backoff and then queued offline; `flush()` or the next launch
