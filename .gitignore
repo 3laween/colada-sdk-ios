@@ -1,0 +1,9 @@
+# Swift Package Manager / Xcode
+.build/
+.swiftpm/
+*.xcframework
+*.xcframework.zip
+
+# OS
+.DS_Store
+Thumbs.db
