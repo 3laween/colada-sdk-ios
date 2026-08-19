@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Colada'
-  s.version          = '0.1.1'
+  s.version          = '0.2.0'
   s.summary          = 'Attribution and lifecycle event tracking SDK for iOS.'
   s.description      = <<-DESC
     Colada is a lightweight iOS SDK for attribution resolution, deep link handling,
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.swift_version    = '5.9'
 
   s.source           = {
-    :http => 'https://github.com/3laween/colada-sdk-ios/releases/download/v0.1.1/Colada.xcframework.zip'
+    :http => 'https://github.com/3laween/colada-sdk-ios/releases/download/v0.2.0/Colada.xcframework.zip'
   }
 
   s.vendored_frameworks = 'Colada.xcframework'
