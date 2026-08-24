@@ -3,6 +3,12 @@
 All notable changes to the Colada iOS SDK (`Colada`) are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versions follow semver.
 
+## 0.2.1 — 2026-08-24
+
+- **More reliable deep link attribution.** Re-engagement links now attribute correctly on
+  iOS, matching Android — so campaigns that bring existing users back into your app are
+  measured accurately.
+
 ## 0.2.0 — 2026-08-19
 
 ### Removed — BREAKING
