@@ -24,8 +24,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Colada",
-            url: "https://github.com/3laween/colada-sdk-ios/releases/download/v0.2.4/Colada.xcframework.zip",
-            checksum: "fbfbfd78abfe3b7aabf3f12e639f3f608f95c1f2dc2a35de3cddb352d5971818"
+            url: "https://github.com/3laween/colada-sdk-ios/releases/download/v0.2.5/Colada.xcframework.zip",
+            checksum: "fee00e087baaf0c8df5ff46ec9fad5f6f45d88d0e9785131609b60b1a76147ec"
         ),
     ]
 )
