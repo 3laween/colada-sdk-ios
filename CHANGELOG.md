@@ -3,6 +3,13 @@
 All notable changes to the Colada iOS SDK (`Colada`) are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versions follow semver.
 
+## 0.2.6 — 2026-09-27
+
+- **Saudi Arabia region.** API keys starting `pk_ksa_` are now accepted and the SDK talks to
+  `https://api-ksa.coladaapp.io` for them; `pk_live_` keys keep using
+  `https://backend.coladaapp.io`. Chosen from the key alone — no code change.
+- A cached session token is re-minted if the key's region changes.
+
 ## 0.2.1 — 2026-08-24
 
 - **More reliable deep link attribution.** Re-engagement links now attribute correctly on
