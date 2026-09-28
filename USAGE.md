@@ -8,8 +8,7 @@ Attribution and lifecycle event tracking for iOS. Zero third-party dependencies.
 
 - iOS 13.0+
 - Swift 5.9+ (Xcode 15+)
-- A Colada API key (`pk_live_…`, or `pk_ksa_…` for tenants hosted in Saudi Arabia — the SDK
-  picks the matching backend from the key) — contact your Colada account manager.
+- A Colada API key (`pk_live_…`) — contact your Colada account manager.
 
 ---
 
