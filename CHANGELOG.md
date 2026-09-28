@@ -3,6 +3,10 @@
 All notable changes to the Colada iOS SDK (`Colada`) are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versions follow semver.
 
+## 0.2.7 — 2026-09-28
+
+- **Backend moved.** The SDK now talks to `https://api-ksa.coladaapp.io` instead of `https://backend.coladaapp.io`. No integration change.
+
 ## 0.2.1 — 2026-08-24
 
 - **More reliable deep link attribution.** Re-engagement links now attribute correctly on
