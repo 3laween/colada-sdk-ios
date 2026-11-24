@@ -154,6 +154,22 @@ try await ColadaSDK.shared.reportEvent(
 
 > Always pass `amount` and `currency` for `.purchase` and `.subscribe`. `currency` defaults to `"SAR"`.
 
+**Counting an event once across integrations (optional).** If the same event also reaches the ad
+platforms from another integration (your store platform or your own pixel), pass that
+integration's event id so the platforms count it once:
+
+```swift
+try await ColadaSDK.shared.reportEvent(
+    .purchase,
+    metadata: AttributionEventMetadata(amount: 99.5, currency: "SAR", orderId: "ORD-123"),
+    eventId: storeEventId
+)
+```
+
+Give every event its own id — the one your other integration sent for that same event — and
+pass nothing for an event it doesn't send. Reusing one id for two different events makes the
+second one count as a duplicate. `reportRegistration(userInfo:eventId:)` takes it too.
+
 ---
 
 ### 5. Report registration

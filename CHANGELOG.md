@@ -3,6 +3,14 @@
 All notable changes to the Colada iOS SDK (`Colada`) are documented here. Format loosely
 follows [Keep a Changelog](https://keepachangelog.com/); versions follow semver.
 
+## 0.3.0 — 2026-11-24
+
+- **Optional `eventId` on events.** If the same event also reaches the ad platforms from another
+  integration (your store platform or your own pixel), pass that integration's event id so the
+  platforms count it once: `reportEvent(_:metadata:eventId:)` and
+  `reportRegistration(userInfo:eventId:)`. Give every event its own id. Existing calls are
+  unchanged.
+
 ## 0.2.7 — 2026-09-28
 
 - **Backend moved.** The SDK now talks to `https://api-ksa.coladaapp.io` instead of `https://backend.coladaapp.io`. No integration change.
